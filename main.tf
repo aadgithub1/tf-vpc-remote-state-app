@@ -7,7 +7,7 @@ data "terraform_remote_state" "state_bucket" {
 
   config = {
     bucket = "amzn-aaron-tf-state-bucket"
-    key = "network/terraform.tfstate"
+    key    = "network/terraform.tfstate"
     region = "us-east-2"
   }
 }
@@ -19,7 +19,7 @@ data "aws_ssm_parameter" "amzn_linux" {
 resource "aws_instance" "web_server" {
   ami           = data.aws_ssm_parameter.amzn_linux.value
   instance_type = "t3.micro"
-  subnet_id = data.terraform_remote_state.state_bucket.outputs.subnet-id
+  subnet_id     = data.terraform_remote_state.state_bucket.outputs.subnet-id
 
   tags = {
     Name = var.instance-name
